@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import {Line, Extrude} from '@react-three/drei'
 import {createRef, useEffect, useState} from "react";
-import getBuildingsData, {IBuilding} from "./helpers/getBuildingsData";
+import getBuildingsData, {IMapItem} from "./helpers/getBuildingsData";
 
 const buildingMaterial = new THREE.MeshPhongMaterial({color: 0xffffff, wireframe: false});
 
 const Buildings = () => {
 
-  const [buildingsData, setBuildingsData] = useState<IBuilding[]>([]);
+  const [buildingsData, setBuildingsData] = useState<IMapItem[]>([]);
 
   useEffect(()=> {
     fetch('/data.geojson')
@@ -17,15 +17,23 @@ const Buildings = () => {
   },[])
 
   return (
-    <>{ buildingsData.map((data, i) => <Building key={i} {...data}/>) }
+    <>{ buildingsData.map((data, i) => {
+      console.log(data.type)
+      if(data.type === "building") {
+        return <Building key={i} {...data}/>
+      } else {
+        return <Road key={i} {...data}/>
+      }
+    }) }
     </>
   )
 }
 
-const Building = (props: IBuilding) => {
-  const {geometry, info} = props;
+const Building = (props: IMapItem) => {
+  //@ts-ignore
+  const {shape, info} = props;
 
-  console.log({props})
+  // console.log({props})
   const ref = createRef<THREE.Line>();
 
   useEffect(()=>{
@@ -35,11 +43,11 @@ const Building = (props: IBuilding) => {
   return (
     <Extrude
       args={[
-        geometry,
+        shape,
         {
           depth: 0.05*(info["building:levels"] ? info["building:levels"] : 1),
           steps: 1,
-          // bevelEnabled:false,
+          bevelEnabled:false,
           bevelSize: 0.01,
           bevelOffset: 0.05
         }
@@ -51,5 +59,18 @@ const Building = (props: IBuilding) => {
   )
 }
 
+const Road = (props: IMapItem)  => {
+  //@ts-ignore
+  const {points, info} = props;
+  console.log({info})
+
+  return (
+    <Line
+      points={points}
+      rotation={[ Math.PI, Math.PI, 0]} color={0x2f9bff}
+      lineWidth={1 * (info.lanes || 1)}
+    />
+  )
+}
 
 export default Buildings;

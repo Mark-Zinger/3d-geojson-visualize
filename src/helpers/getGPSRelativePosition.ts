@@ -6,14 +6,14 @@ import coordinateType from "../types/coordinateType";
 function GetGPSRelativePosition (objectPosition:coordinateType, centerPosition: coordinateType) {
 
   // Get GPS distance
-  console.log({objectPosition, centerPosition})
+  // console.log({objectPosition, centerPosition})
 
   const distance = geolib.getDistance(objectPosition, centerPosition);
 
   // Get bearing angle
   const bearing = geolib.getRhumbLineBearing(objectPosition, centerPosition);
 
-  console.log(distance)
+  // console.log(distance)
 
   // Calculate X by centerPosition.x + distance * cos(rad)
   const x = centerPosition[0] + (distance * Math.cos(bearing * Math.PI / 180));
