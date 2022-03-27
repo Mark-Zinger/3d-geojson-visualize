@@ -34,7 +34,7 @@ const center:coordinateType = [ 37.585332, 55.874575 ];
 
 export interface IBuilding {
   geometry: any,
-  info: GeoJsonProperties
+  info: any
 }
 
 function addBuilding (data: coordinateType[][], info: GeoJsonProperties, height=1): IBuilding {

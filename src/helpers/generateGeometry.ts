@@ -17,7 +17,7 @@ function generateGeometry (shape: THREE.Vector3[], height:number) {
 
   const geometry = new THREE.BufferGeometry().setFromPoints(shape)
   geometry.computeBoundingBox();
-  geometry.rotateX(Math.PI / 2);
+  geometry.rotateX(Math.PI);
   geometry.rotateZ(Math.PI)
 
   return geometry;

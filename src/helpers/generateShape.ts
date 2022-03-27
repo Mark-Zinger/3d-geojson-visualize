@@ -4,22 +4,22 @@ import getGPSRelativePosition from "./getGPSRelativePosition";
 
 
 function generateShape (points:coordinateType[], center:coordinateType) {
-  // const shape = new THREE.Shape();
-  const normalizedPoints:THREE.Vector3[] = [];
+  const shape = new THREE.Shape();
+
 
   for(let i = 0; i < points.length; i++) {
     const position = getGPSRelativePosition(points[i], center);
 
-    // if(i === 0) {
-    //   shape.moveTo(position[0], position[1]);
-    // } else {
-    //   shape.lineTo(position[0], position[1]);
-    // }
-    normalizedPoints.push(new THREE.Vector3(position[0],0,position[1]))
+    if(i === 0) {
+      shape.moveTo(position[0], position[1]);
+    } else {
+      shape.lineTo(position[0], position[1]);
+    }
+
 
   }
   // console.log(shape)
-  return normalizedPoints;
+  return shape
 }
 
 export default generateShape;

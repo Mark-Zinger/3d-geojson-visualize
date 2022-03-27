@@ -29,8 +29,9 @@ const App = () => {
     <Canvas onCreated={()=> {
 
     }}>
-      <ambientLight/>
-      <pointLight position={[10, 10, 10]}/>
+      <ambientLight args={[0xfafafa, 0.25]}/>
+      <pointLight args={[0xfafafa, 0.4]} position={[200, 90, 40]}/>
+      <pointLight args={[0xfafafa, 0.4]} position={[200, 90, -40]}/>
       <OrbitControls
         enableDamping={true}
         dampingFactor={0.25}
@@ -38,7 +39,7 @@ const App = () => {
         maxDistance={800}
       />
       <Buildings/>
-      {/*<gridHelper args={[60, 10, 0x555555, 0x333333]}/>*/}
+      <gridHelper args={[360, 36, 0x555555, 0x333333]}/>
       <Stats/>
       {/*<Box position={[-1.2, 0, 0]}/>*/}
       {/*<Box position={[1.2, 0, 0]}/>*/}
