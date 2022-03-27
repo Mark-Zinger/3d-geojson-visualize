@@ -1,0 +1,14 @@
+/*
+This is an example Overpass query.
+Try it out by pressing the Run button above!
+You can find more examples with the Load tool.
+*/
+
+
+[out:json][timeout:30];(
+  way["building"](55.77549289476438,37.677708864212036,55.77801514860847,37.68308401107788);
+	
+  relation["building"]["type"="multipolygon"](55.77549289476438,37.677708864212036,55.77801514860847,37.68308401107788);
+  way["highway"](55.77549289476438,37.677708864212036,55.77801514860847,37.68308401107788);
+
+);out;>;out qt;

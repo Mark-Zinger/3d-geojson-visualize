@@ -39,7 +39,7 @@ const App = () => {
         maxDistance={800}
       />
       <Buildings/>
-      <gridHelper args={[360, 36, 0x555555, 0x333333]}/>
+      <gridHelper args={[16, 36, 0x555555, 0x333333]}/>
       <Stats/>
       {/*<Box position={[-1.2, 0, 0]}/>*/}
       {/*<Box position={[1.2, 0, 0]}/>*/}
