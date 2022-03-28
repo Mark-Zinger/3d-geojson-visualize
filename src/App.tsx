@@ -25,9 +25,18 @@ function Box(props: JSX.IntrinsicElements['mesh']) {
 
 const App = () => {
 
-  return (
-    <Canvas onCreated={()=> {
+  /*
+    x: -2.6386437562300196
+    y: 2.8412737707525477
+    z: -5.8060430479653515
+  *
+  * */
 
+
+  return (/*@ts-igonre*/
+    <Canvas camera={{position: [-2.6386437562300196, 2.8412737707525477, -5.8060430479653515]}} onCreated={(gl) => {
+      // @ts-ignore
+      window.gl = gl
     }}>
       <ambientLight args={[0xfafafa, 0.25]}/>
       <pointLight args={[0xfafafa, 0.4]} position={[200, 90, 40]}/>
