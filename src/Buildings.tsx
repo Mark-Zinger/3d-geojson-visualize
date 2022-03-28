@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {Line, Extrude} from '@react-three/drei'
+import {Line, Extrude, Html} from '@react-three/drei'
 import {createRef, useEffect, useState} from "react";
 import getBuildingsData, {IMapItem} from "./helpers/getBuildingsData";
 
@@ -32,8 +32,9 @@ const Buildings = () => {
 const Building = (props: IMapItem) => {
   //@ts-ignore
   const {shape, info} = props;
+  const [hover, setHover] = useState<false | THREE.Vector3>(false);
 
-  // console.log({props})
+  console.log({info})
   const ref = createRef<THREE.Line>();
 
   useEffect(()=>{
@@ -41,28 +42,41 @@ const Building = (props: IMapItem) => {
   },[])
 
   return (
-    <Extrude
-      args={[
-        shape,
-        {
-          depth: 0.05*(info["building:levels"] ? info["building:levels"] : 1),
-          steps: 1,
-          bevelEnabled:false,
-          bevelSize: 0.01,
-          bevelOffset: 0.05
-        }
+    <>
+      <Extrude
+        args={[
+          shape,
+          {
+            depth: 0.05*(info["building:levels"] ? info["building:levels"] : 1),
+            steps: 1,
+            bevelEnabled:false,
+            bevelSize: 0.01,
+            bevelOffset: 0.05
+          }
 
-      ]}
-      rotation={[ Math.PI / 2, Math.PI, 0]}
-      material={buildingMaterial}
-    />
+        ]}
+        rotation={[ Math.PI / 2, Math.PI, 0]}
+        material={buildingMaterial}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          console.log(event)
+          setHover(event.point)
+        }}
+        onPointerOut={(event) => setHover(false)}
+      />
+      { hover && <Html position={hover} style={{color: "black", background: "white", padding: '10px'}}>
+        {info["addr:street"]} {info["addr:housenumber"]}
+
+      </Html>
+      }
+    </>
   )
 }
 
 const Road = (props: IMapItem)  => {
   //@ts-ignore
   const {points, info} = props;
-  console.log({info})
+  // console.log({info})
 
   return (
     <Line
